@@ -12,6 +12,7 @@ import sys
 
 def main(argv):
     print(argv[0])
+    print('it works!')
 
 if __name__=='__main__':
     main(sys.argv[1:])
