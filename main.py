@@ -19,15 +19,41 @@ def main(argv):
 		file=open(argv[0],"r")
 		if file.mode == 'r':
 			weightValues=json.load(file)
+			for k in weightValues:
+				weightValues[k]=int(weightValues[k])
 	except FileNotFoundError:
 		print("File '"+argv[0]+"' not found. Aborting...")
 
-	calcWeight(weightValues)
+	finalWeights=calcWeight(weightValues)
+
+	for n in range(0,len(weightValues)):
+		weightValues[n]=finalWeights[n]
+
+	print(weightValues)
 
 def calcWeight(weights):
+	rows=[0 for _ in range(len(weights))]
+	collumn=[]
 	for k in weights:
-		print (weights[k])
-	return
+		total=0
+		collumn.clear()
+		for x in weights:
+			if (weights[x]-weights[k])>0:
+				collumn.append((weights[x]-weights[k])+1)
+				total+=(weights[x]-weights[k])+1
+			else:
+				collumn.append(1/((weights[k]-weights[x])+1))
+				total+=1/((weights[k]-weights[x])+1)
+		# print (collumn)
+		# print(total)
+		for i in range(0,len(collumn)):
+			collumn[i]=collumn[i]/total
+			rows[i]+=collumn[i]
+		# print(collumn)
+	# 	rows.append(collumn)
+	for n in range(0,len(rows)):
+		rows[n]=round(rows[n]/len(rows),2)
+	return rows
 
 if __name__=='__main__':
 	main(sys.argv[1:])
