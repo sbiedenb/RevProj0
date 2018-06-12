@@ -26,8 +26,10 @@ def main(argv):
 
 	finalWeights=calcWeight(weightValues)
 
-	for n in range(0,len(weightValues)):
-		weightValues[n]=finalWeights[n]
+	i=0
+	for n in weightValues:
+		weightValues[n]=finalWeights[i]
+		i+=1
 
 	print(weightValues)
 
@@ -44,13 +46,9 @@ def calcWeight(weights):
 			else:
 				collumn.append(1/((weights[k]-weights[x])+1))
 				total+=1/((weights[k]-weights[x])+1)
-		# print (collumn)
-		# print(total)
 		for i in range(0,len(collumn)):
 			collumn[i]=collumn[i]/total
 			rows[i]+=collumn[i]
-		# print(collumn)
-	# 	rows.append(collumn)
 	for n in range(0,len(rows)):
 		rows[n]=round(rows[n]/len(rows),2)
 	return rows
