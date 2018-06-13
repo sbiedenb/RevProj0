@@ -11,10 +11,12 @@ import sys, json
 
 def main(argv):
 	weightValues=''
+	#Checking for correct number of input arguments
 	if len(argv)!=2:
 		print('======ERROR======')
 		print('Usage: main.py <json parameters> <num of returns>')
 		sys.exit()
+	#Try to open the file and load the json data into a dictionary format
 	try:
 		file=open(argv[0],"r")
 		if file.mode == 'r':
@@ -24,6 +26,7 @@ def main(argv):
 	except FileNotFoundError:
 		print("File '"+argv[0]+"' not found. Aborting...")
 
+	#Calculate the final weights used to compare individuals
 	finalWeights=calcWeight(weightValues)
 
 	i=0
@@ -33,6 +36,7 @@ def main(argv):
 
 	print(weightValues)
 
+#Calculation for determining final category weights
 def calcWeight(weights):
 	rows=[0 for _ in range(len(weights))]
 	collumn=[]
@@ -53,5 +57,6 @@ def calcWeight(weights):
 		rows[n]=round(rows[n]/len(rows),2)
 	return rows
 
+#=======================#
 if __name__=='__main__':
 	main(sys.argv[1:])
