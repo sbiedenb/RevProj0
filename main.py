@@ -11,6 +11,7 @@ import sys, json
 
 def main(argv):
 	weightValues=''
+	candidates=int(argv[1])
 	#Checking for correct number of input arguments
 	if len(argv)!=2:
 		print('======ERROR======')
@@ -35,6 +36,12 @@ def main(argv):
 		i+=1
 
 	print(weightValues)
+
+	finalScore={'John':40,'Mary':20,'Sam':80,'Bob':50}
+
+	sortedList=sorted(finalScore.items(), key=lambda x: x[1], reverse=True)
+	for key in range(0,candidates):
+		print(sortedList[key])
 
 #Calculation for determining final category weights
 def calcWeight(weights):
