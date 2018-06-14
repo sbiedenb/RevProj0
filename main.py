@@ -36,13 +36,14 @@ def main(argv):
 		weightValues[n]=finalWeights[i]
 		i+=1
 
-	print(weightValues)
+	#print(weightValues)
 
 	finalScore={'John':40,'Mary':20,'Sam':80,'Bob':50}
 
 	#Sort the final list of candidates by overall scores
 	#returns the desired number of top candidates
 	sortedList=sorted(finalScore.items(), key=lambda x: x[1], reverse=True)
+	print("Top "+argv[1]+' Candidates:')
 	for key in range(0,candidates):
 		print(sortedList[key])
 
