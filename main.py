@@ -30,6 +30,7 @@ def main(argv):
 	#Calculate the final weights used to compare individuals
 	finalWeights=calcWeight(weightValues)
 
+	#Inserting final weights into the original json dictionary
 	i=0
 	for n in weightValues:
 		weightValues[n]=finalWeights[i]
@@ -39,6 +40,8 @@ def main(argv):
 
 	finalScore={'John':40,'Mary':20,'Sam':80,'Bob':50}
 
+	#Sort the final list of candidates by overall scores
+	#returns the desired number of top candidates
 	sortedList=sorted(finalScore.items(), key=lambda x: x[1], reverse=True)
 	for key in range(0,candidates):
 		print(sortedList[key])
