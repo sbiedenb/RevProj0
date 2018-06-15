@@ -5,6 +5,12 @@
 Authors:
 - Steven Biedenbach
 - Francis Kato
+
+Abstract:
+-Program used to select candidates based on predetermined score matrix.
+
+Usage:
+$ main.py [json desired scores] [number of return candidates]
 '''
 
 import sys, json
@@ -38,6 +44,7 @@ def main(argv):
 
 	#print(weightValues)
 
+	#TEST VALUES
 	finalScore={'John':40,'Mary':20,'Sam':80,'Bob':50}
 
 	#Sort the final list of candidates by overall scores
@@ -47,6 +54,7 @@ def main(argv):
 	for key in range(0,candidates):
 		print(sortedList[key])
 
+#=======================#
 #Calculation for determining final category weights
 def calcWeight(weights):
 	rows=[0 for _ in range(len(weights))]
