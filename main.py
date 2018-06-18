@@ -11,6 +11,11 @@ Abstract:
 
 Usage:
 $ main.py [json desired scores] [number of return candidates]
+-Desired objectives must be in correct Json format eg.({"Java":"9","Angular":"4","SOAP":"2"})
+-Positive integers only (Negative integers will be converted to positive)
+-Desired amount of candidates should be less than or equal to the amount of total candidates
+-Output format: ('[Candidate]', [Score])
+-Output is in descending order
 '''
 
 import sys, json
@@ -65,7 +70,8 @@ def main(argv):
 	#Sort the final list of candidates by overall scores
 	#returns the desired number of top candidates
 	sortedList=sorted(finalScore.items(), key=lambda x: x[1], reverse=True)
-	print("Top "+argv[1]+' Candidates:')
+	print("Top "+str(abs(int(argv[1])))+' Candidates:')
+	if int(argv[1])==0:print('-Nobody is Worthy!')
 	try:
 		for key in range(0,candidates):
 			print(sortedList[key])
