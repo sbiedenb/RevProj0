@@ -21,14 +21,14 @@ def main(argv):
 	#Checking for correct number of input arguments
 	if len(argv)!=2:
 		print('======ERROR======')
-		print('Usage: main.py <json parameters> <num of returns>')
+		print('Usage: main.py <JSON parameters> <num of returns>')
 		sys.exit()
 
 	try:
 		candidates=int(argv[1])
 	except ValueError:
 		print('======ERROR======')
-		print('Usage: main.py <json parameters> <num of returns>')
+		print('Usage: main.py <JSON parameters> <num of returns>')
 		sys.exit()
 
 	#Try to open the file and load the json data into a dictionary format
@@ -43,8 +43,10 @@ def main(argv):
 				sys.exit()
 			for k in weightValues:
 				weightValues[k]=int(weightValues[k])
-	except FileNotFoundError:
-		print("File '"+argv[0]+"' not found. Aborting...")
+	except (FileNotFoundError, ValueError):
+		print('======ERROR======')
+		print("File '"+argv[0]+"' not found or incorrect format. Aborting...")
+		sys.exit()
 
 	#Calculate the final weights used to compare individuals
 	finalWeights=calcWeight(weightValues)
