@@ -42,7 +42,7 @@ def main(argv):
 				print('File not in JSON format.')
 				sys.exit()
 			for k in weightValues:
-				weightValues[k]=int(weightValues[k])
+				weightValues[k]=abs(int(weightValues[k]))
 	except (FileNotFoundError, ValueError):
 		print('======ERROR======')
 		print("File '"+argv[0]+"' not found or incorrect format. Aborting...")
