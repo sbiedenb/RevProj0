@@ -25,7 +25,7 @@ def main(argv):
 		sys.exit()
 
 	try:
-		candidates=int(argv[1])
+		candidates=abs(int(argv[1]))
 	except ValueError:
 		print('======ERROR======')
 		print('Usage: main.py <JSON parameters> <num of returns>')
