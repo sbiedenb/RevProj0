@@ -17,17 +17,30 @@ import sys, json
 
 def main(argv):
 	weightValues=''
-	candidates=int(argv[1])
+	
 	#Checking for correct number of input arguments
 	if len(argv)!=2:
 		print('======ERROR======')
 		print('Usage: main.py <json parameters> <num of returns>')
 		sys.exit()
+
+	try:
+		candidates=int(argv[1])
+	except ValueError:
+		print('======ERROR======')
+		print('Usage: main.py <json parameters> <num of returns>')
+		sys.exit()
+
 	#Try to open the file and load the json data into a dictionary format
 	try:
 		file=open(argv[0],"r")
 		if file.mode == 'r':
-			weightValues=json.load(file)
+			try:
+				weightValues=json.load(file)
+			except UnicodeDecodeError:
+				print('======ERROR======')
+				print('File not in JSON format.')
+				sys.exit()
 			for k in weightValues:
 				weightValues[k]=int(weightValues[k])
 	except FileNotFoundError:
@@ -51,9 +64,13 @@ def main(argv):
 	#returns the desired number of top candidates
 	sortedList=sorted(finalScore.items(), key=lambda x: x[1], reverse=True)
 	print("Top "+argv[1]+' Candidates:')
-	for key in range(0,candidates):
-		print(sortedList[key])
-
+	try:
+		for key in range(0,candidates):
+			print(sortedList[key])
+	except IndexError:
+		print('======ERROR======')
+		print('End of Candidates List')
+		sys.exit()
 #=======================#
 #Calculation for determining final category weights
 def calcWeight(weights):
