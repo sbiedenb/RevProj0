@@ -67,7 +67,7 @@ def main(argv):
 
 	persons = readGradesFromFile('./grades.json')
 	conversion = convertData(persons)
-	print(conversion)
+	#print(conversion)
 
 	#TEST VALUES
 	finalScore=candidateScores(weightValues,conversion)
@@ -146,7 +146,18 @@ def convertData(people):
     return people 
 #=======================#
 def candidateScores(catWeights, personWeights):
-	return
+	finalWeight=dict()
+	tempWeight=dict()
+	for key in catWeights:
+		for person,skill in personWeights.items():
+			try:
+				tempWeight[person]=personWeights[skill[key]]
+			except KeyError:
+				tempWeight[person]=0
+		tempWeight=calcWeight(tempWeight)
+		for person in finalWeight:
+			finalWeight[person]+=tempWeight[person]
+	return finalWeight
 
 #=======================#
 if __name__=='__main__':
