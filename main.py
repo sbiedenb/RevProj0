@@ -144,20 +144,29 @@ def convertData(people):
                 skills[technology] = 0
 
     return people 
+
+# def convertoDict(array):
+# 	dictionary = {}
+# 	for i in range(1,len(array)):
+# 		if i%2==0:
+# 			dictionary[array[i-1]]=array[i]
+# 	return dictionary
+
 #=======================#
 def candidateScores(catWeights, personWeights):
-	finalWeight=dict()
-	tempWeight=dict()
-	for key in catWeights:
+	finalWeight={'':0}
+	tempWeight = []
+	dictionary = {}
+
+	for tech, weight in catWeights.items():
 		for person, skills in personWeights.items():
-                    for tech, score in skills.items():
-			try:
-                            tempWeight[person] =score
-			except KeyError:
-				tempWeight[person]=0
-		tempWeight=calcWeight(tempWeight)
-		for person in finalWeight:
-			finalWeight[person]+=tempWeight[person]
+			if tech in skills:
+				value = skills.get(tech)
+				tempWeight.append(person)
+				tempWeight.append(value)				
+			else:
+				tempWeight.append(person)
+				tempWeight.append(0)	
 	return finalWeight
 
 #=======================#
