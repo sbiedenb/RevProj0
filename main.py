@@ -71,10 +71,11 @@ def main(argv):
 
 	#TEST VALUES
 	finalScore=candidateScores(weightValues,conversion)
+	#print(finalScore)
 	#{'John':40,'Mary':20,'Sam':80,'Bob':50}
 
-	#Sort the final list of candidates by overall scores
-	#returns the desired number of top candidates
+	# Sort the final list of candidates by overall scores
+	# returns the desired number of top candidates
 	sortedList=sorted(finalScore.items(), key=lambda x: x[1], reverse=True)
 	print("Top "+str(abs(int(argv[1])))+' Candidates:')
 	if int(argv[1])==0:print('-Nobody is Worthy!')
@@ -154,20 +155,24 @@ def convertData(people):
 
 #=======================#
 def candidateScores(catWeights, personWeights):
-	finalWeight={'':0}
-	tempWeight = []
+	finalWeight=[]
+	tempWeight = {}
 	dictionary = {}
+	for p in personWeights:
+		dictionary[p]=0
 
 	for tech, weight in catWeights.items():
 		for person, skills in personWeights.items():
 			if tech in skills:
-				value = skills.get(tech)
-				tempWeight.append(person)
-				tempWeight.append(value)				
+				tempWeight[person]=skills[tech]		
 			else:
-				tempWeight.append(person)
-				tempWeight.append(0)	
-	return finalWeight
+				tempWeight[person]=0
+		finalWeight=calcWeight(tempWeight)
+		i=0
+		for person in tempWeight:
+			dictionary[person]+=finalWeight[i]*weight
+			i+=1
+	return dictionary
 
 #=======================#
 if __name__=='__main__':
