@@ -54,6 +54,7 @@ def main(argv):
 		sys.exit()
 
 	#Calculate the final weights used to compare individuals
+	print(weightValues)
 	finalWeights=calcWeight(weightValues)
 
 	#Inserting final weights into the original json dictionary
@@ -62,7 +63,7 @@ def main(argv):
 		weightValues[n]=finalWeights[i]
 		i+=1
 
-	#print(weightValues)
+	print(weightValues)
 
 	#TEST VALUES
 	finalScore={'John':40,'Mary':20,'Sam':80,'Bob':50}
