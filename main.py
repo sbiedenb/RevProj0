@@ -149,9 +149,10 @@ def candidateScores(catWeights, personWeights):
 	finalWeight=dict()
 	tempWeight=dict()
 	for key in catWeights:
-		for person,skill in personWeights.items():
+		for person, skills in personWeights.items():
+                    for tech, score in skills.items():
 			try:
-				tempWeight[person]=personWeights[skill[key]]
+                            tempWeight[person] =score
 			except KeyError:
 				tempWeight[person]=0
 		tempWeight=calcWeight(tempWeight)
