@@ -10,11 +10,11 @@ Abstract:
 -Program used to select candidates based on predetermined score matrix.
 
 Usage:
-$ main.py [json desired scores] [number of return candidates]
+$ main.py [json desired scores] [number of return candidates] [json grades]
 -Desired objectives must be in correct Json format eg.({"Java":"9","Angular":"4","SOAP":"2"})
 -Positive integers only (Negative integers will be converted to positive)
 -Desired amount of candidates should be less than or equal to the amount of total candidates
--Output format: ('[Candidate]', [Score])
+-Output format: ('[Candidate]')
 -Output is in descending order
 '''
 
@@ -24,16 +24,16 @@ def main(argv):
 	weightValues=''
 	
 	#Checking for correct number of input arguments
-	if len(argv)!=2:
+	if len(argv)!=3:
 		print('======ERROR======')
-		print('Usage: main.py <JSON parameters> <num of returns>')
+		print('Usage: main.py <JSON parameters> <num of returns> <JSON Grades>')
 		sys.exit()
 
 	try:
 		candidates=abs(int(argv[1]))
 	except ValueError:
 		print('======ERROR======')
-		print('Usage: main.py <JSON parameters> <num of returns>')
+		print('Usage: main.py <JSON parameters> <num of returns> <JSON Grades>')
 		sys.exit()
 
 	#Try to open the file and load the json data into a dictionary format
@@ -65,15 +65,15 @@ def main(argv):
 
 	#print(weightValues)
 
-	persons = readGradesFromFile('./grades.json')
+	persons = readGradesFromFile(argv[2])
 	conversion = convertData(persons)
 	#print(conversion)
 
 	#TEST VALUES
+	#{'John':40,'Mary':20,'Sam':80,'Bob':50}
 	finalScore=candidateScores(weightValues,conversion)
 	#print(finalScore)
-	#{'John':40,'Mary':20,'Sam':80,'Bob':50}
-
+	
 	# Sort the final list of candidates by overall scores
 	# returns the desired number of top candidates
 	sortedList=sorted(finalScore.items(), key=lambda x: x[1], reverse=True)
@@ -81,11 +81,12 @@ def main(argv):
 	if int(argv[1])==0:print('-Nobody is Worthy!')
 	try:
 		for key in range(0,candidates):
-			print(sortedList[key])
+			print((sortedList[key])[0])
 	except IndexError:
 		print('======ERROR======')
 		print('End of Candidates List')
 		sys.exit()
+
 #=======================#
 #Calculation for determining final category weights
 def calcWeight(weights):
@@ -145,13 +146,6 @@ def convertData(people):
                 skills[technology] = 0
 
     return people 
-
-# def convertoDict(array):
-# 	dictionary = {}
-# 	for i in range(1,len(array)):
-# 		if i%2==0:
-# 			dictionary[array[i-1]]=array[i]
-# 	return dictionary
 
 #=======================#
 def candidateScores(catWeights, personWeights):
